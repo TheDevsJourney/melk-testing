@@ -24,8 +24,8 @@ const Home = () => {
         <h1>Hey</h1>
         <Cart />
         <Products />
+        <p>yo</p>
       </Layout>
-      <p>yo</p>
     </CartProvider>
   )
 }
