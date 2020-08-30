@@ -32,6 +32,7 @@ const Cart = () => {
 
       {/* Redirects the user to Stripe */}
       <button
+        role="link"
         style={buttonStyles}
         disabled={loading}
         onClick={() => {
