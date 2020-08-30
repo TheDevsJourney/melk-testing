@@ -25,6 +25,7 @@ const Home = () => {
         <Cart />
         <Products />
       </Layout>
+      <p>yo</p>
     </CartProvider>
   )
 }
