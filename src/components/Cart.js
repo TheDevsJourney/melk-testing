@@ -16,6 +16,7 @@ const buttonStyles = {
 
 const Cart = () => {
   const [loading, setLoading] = useState(false)
+  const [status, setStatus] = useState("idle")
   /* Gets the totalPrice and a method for redirecting to stripe */
   const {
     formattedTotalPrice,
@@ -23,6 +24,17 @@ const Cart = () => {
     cartCount,
     clearCart,
   } = useShoppingCart()
+
+  const handleClick = async () => {
+    // event.preventDefault()
+    if (cartCount > 0) {
+      setStatus("idle")
+      const error = await redirectToCheckout()
+      if (error) setStatus("redirect-error")
+    } else {
+      setStatus("missing-items")
+    }
+  }
 
   return (
     <div>
@@ -37,7 +49,8 @@ const Cart = () => {
         disabled={loading}
         onClick={() => {
           setLoading(true)
-          redirectToCheckout()
+          handleClick()
+          // redirectToCheckout()
         }}
       >
         {loading ? "Loading..." : "Checkout"}
