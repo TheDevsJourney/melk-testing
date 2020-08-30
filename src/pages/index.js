@@ -11,6 +11,7 @@ const stripePromise = loadStripe(`${process.env.STRIPE_PUBLISHABLE_KEY}`)
 
 const Home = () => {
   return (
+    // Mode was client-only testing checkout-session
     <CartProvider
       mode="client-only"
       stripe={stripePromise}
