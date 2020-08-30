@@ -7,7 +7,7 @@ import Cart from "../components/Cart"
 import { loadStripe } from "@stripe/stripe-js"
 import { CartProvider } from "use-shopping-cart"
 
-const stripePromise = loadStripe(`${process.env.STRIPE_PUBLISHABLE_KEY}`)
+const stripePromise = loadStripe(process.env.STRIPE_PUBLISHABLE_KEY)
 
 const Home = () => {
   return (
@@ -15,8 +15,8 @@ const Home = () => {
     <CartProvider
       mode="client-only"
       stripe={stripePromise}
-      successUrl="http://localhost:8000/"
-      cancelUrl="http://localhost:8000"
+      successUrl={`${window.location.origin}/`}
+      cancelUrl={`${window.location.origin}/`}
       currency="USD"
       allowedCountries={["US", "GB", "CA"]}
       billingAddressCollection={true}

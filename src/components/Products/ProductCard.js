@@ -29,9 +29,9 @@ const buttonStyles = {
   letterSpacing: "1.5px",
 }
 
-const buttonHide = {
-  display: "none",
-}
+// const buttonHide = {
+//   display: "none",
+// }
 
 const ProductCard = ({ product }) => {
   const { addItem, removeItem, cartDetails } = useShoppingCart()
