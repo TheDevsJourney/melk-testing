@@ -21,10 +21,10 @@ const Home = () => {
       allowedCountries={["US", "GB", "CA"]}
       billingAddressCollection={true}
     >
+      <Cart />
+      <Products />
       <Layout>
         <h1>Hey</h1>
-        <Cart />
-        <Products />
         <p>yo</p>
       </Layout>
     </CartProvider>
