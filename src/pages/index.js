@@ -15,8 +15,8 @@ const Home = () => {
     <CartProvider
       mode="client-only"
       stripe={stripePromise}
-      successUrl={`${window.location.origin}/`}
-      cancelUrl={`${window.location.origin}/`}
+      successUrl="https://elated-lamarr-b45c38.netlify.app"
+      cancelUrl="https://elated-lamarr-b45c38.netlify.app"
       currency="USD"
       allowedCountries={["US", "GB", "CA"]}
       billingAddressCollection={true}
