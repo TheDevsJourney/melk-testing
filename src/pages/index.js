@@ -10,7 +10,7 @@ import { loadStripe } from "@stripe/stripe-js"
 let stripePromise
 
 if (!stripePromise) {
-  stripePromise = loadStripe(process.env.STRIPE_PUBLISHABLE_KEY)
+  stripePromise = loadStripe(`${process.env.STRIPE_PUBLISHABLE_KEY}`)
 }
 
 const Home = () => {
