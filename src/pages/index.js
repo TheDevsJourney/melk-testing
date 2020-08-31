@@ -1,5 +1,5 @@
 import React from "react"
-import Layout from "../components/Layout"
+// import Layout from "../components/Layout"
 import Products from "../components/Products/Products"
 
 import Cart from "../components/Cart"
@@ -12,22 +12,20 @@ const stripePromise = loadStripe(`${process.env.STRIPE_PUBLISHABLE_KEY}`)
 const Home = () => {
   return (
     // Mode was client-only testing checkout-session
-    <Layout>
+    <CartProvider
+      mode="client-only"
+      stripe={stripePromise}
+      successUrl="https://elated-lamarr-b45c38.netlify.app"
+      cancelUrl="https://elated-lamarr-b45c38.netlify.app"
+      currency="USD"
+      allowedCountries={["US", "GB", "CA"]}
+      billingAddressCollection={true}
+    >
       <h1>Hey</h1>
       <p>yo</p>
-      <CartProvider
-        mode="client-only"
-        stripe={stripePromise}
-        successUrl="https://elated-lamarr-b45c38.netlify.app"
-        cancelUrl="https://elated-lamarr-b45c38.netlify.app"
-        currency="USD"
-        allowedCountries={["US", "GB", "CA"]}
-        billingAddressCollection={true}
-      >
-        <Cart />
-        <Products />
-      </CartProvider>
-    </Layout>
+      <Cart />
+      <Products />
+    </CartProvider>
   )
 }
 
