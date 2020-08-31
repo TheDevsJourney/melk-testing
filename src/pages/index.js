@@ -5,7 +5,7 @@ import Layout from "../components/Layout"
 import { CartProvider } from "use-shopping-cart"
 import { loadStripe } from "@stripe/stripe-js"
 
-const stripePromise = loadStripe(`${process.env.STRIPE_PUBLISHABLE_KEY}`)
+const stripePromise = loadStripe(process.env.STRIPE_PUBLISHABLE_KEY)
 
 const Home = () => {
   return (
