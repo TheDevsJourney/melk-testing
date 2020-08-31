@@ -1,13 +1,14 @@
 import React from "react"
 // import Layout from "../components/Layout"
+
+import { CartProvider } from "use-shopping-cart"
+import { loadStripe } from "@stripe/stripe-js"
+
 import Products from "../components/Products/Products"
 
 import Cart from "../components/Cart"
 
-import { loadStripe } from "@stripe/stripe-js"
-import { CartProvider } from "use-shopping-cart"
-
-const stripePromise = loadStripe(`${process.env.STRIPE_PUBLISHABLE_KEY}`)
+const stripePromise = loadStripe(process.env.STRIPE_PUBLISHABLE_KEY)
 
 const Home = () => {
   return (
@@ -15,14 +16,12 @@ const Home = () => {
     <CartProvider
       mode="client-only"
       stripe={stripePromise}
-      successUrl="https://elated-lamarr-b45c38.netlify.app"
-      cancelUrl="https://elated-lamarr-b45c38.netlify.app"
       currency="USD"
-      allowedCountries={["US", "GB", "CA"]}
+      successUrl="http://localhost:8000/"
+      cancelUrl="http://localhost:8000"
+      allowedCountries={["US"]}
       billingAddressCollection={true}
     >
-      <h1>Hey</h1>
-      <p>yo</p>
       <Cart />
       <Products />
     </CartProvider>
