@@ -1,16 +1,16 @@
-import React from 'react'
-import { graphql, StaticQuery } from 'gatsby'
-import ProductCart from './ProductCard'
+import React from "react"
+import { graphql, StaticQuery } from "gatsby"
+import ProductCart from "./ProductCard"
 
 const conatinerStyles = {
-  display: 'flex',
-  flexDirection: 'row',
-  flexWrap: 'wrap',
-  justifyContent: 'space-between',
-  padding: '1rem 0 1rem 0',
+  display: "flex",
+  flexDirection: "row",
+  flexWrap: "wrap",
+  justifyContent: "space-between",
+  padding: "1rem 0 1rem 0",
 }
 
-export default (props) => (
+export default props => (
   <StaticQuery
     query={graphql`
       query ProductPrices {
@@ -44,7 +44,8 @@ export default (props) => (
             name: price.product.name,
             price: price.unit_amount,
             currency: price.currency,
-            quantity: price.product.metadata.Quantity
+            image: price.product.images,
+            // quantity: price.product.metadata.Quantity
           }
           return <ProductCart key={price.id} product={newProduct} />
         })}

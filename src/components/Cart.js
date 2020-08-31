@@ -22,7 +22,6 @@ const Cart = () => {
     redirectToCheckout,
     cartCount,
     clearCart,
-    cartDetails,
   } = useShoppingCart()
 
   return (
@@ -38,12 +37,7 @@ const Cart = () => {
         disabled={loading}
         onClick={() => {
           setLoading(true)
-          redirectToCheckout({
-            lineItems: [Object.keys(cartDetails)],
-            mode: "payment",
-            successUrl: "https://your-website.com/success",
-            cancelUrl: "https://your-website.com/canceled",
-          })
+          redirectToCheckout()
         }}
       >
         {loading ? "Loading..." : "Checkout"}

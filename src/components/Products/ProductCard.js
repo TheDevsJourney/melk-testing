@@ -57,9 +57,9 @@ const ProductCard = ({ product }) => {
             return
           }
           // For Testing Purposes
-          if (product.quantity < 1) {
-            return
-          }
+          // if (product.quantity < 1) {
+          //   return
+          // }
           addItem(product)
         }}
       >

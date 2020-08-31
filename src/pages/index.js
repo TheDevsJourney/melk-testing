@@ -7,27 +7,27 @@ import Cart from "../components/Cart"
 import { loadStripe } from "@stripe/stripe-js"
 import { CartProvider } from "use-shopping-cart"
 
-const stripePromise = loadStripe(`${process.env.STRIPE_PUBLISHABLE_KEY}`)
+const stripePromise = loadStripe(process.env.STRIPE_PUBLISHABLE_KEY)
 
 const Home = () => {
   return (
     // Mode was client-only testing checkout-session
-    <CartProvider
-      mode="client-only"
-      stripe={stripePromise}
-      successUrl="https://elated-lamarr-b45c38.netlify.app"
-      cancelUrl="https://elated-lamarr-b45c38.netlify.app"
-      currency="USD"
-      allowedCountries={["US", "GB", "CA"]}
-      billingAddressCollection={true}
-    >
-      <Layout>
-        <h1>Hey</h1>
-        <p>yo</p>
+    <Layout>
+      <h1>Hey</h1>
+      <p>yo</p>
+      <CartProvider
+        mode="client-only"
+        stripe={stripePromise}
+        successUrl="https://elated-lamarr-b45c38.netlify.app"
+        cancelUrl="https://elated-lamarr-b45c38.netlify.app"
+        currency="USD"
+        allowedCountries={["US", "GB", "CA"]}
+        billingAddressCollection={true}
+      >
         <Cart />
         <Products />
-      </Layout>
-    </CartProvider>
+      </CartProvider>
+    </Layout>
   )
 }
 
