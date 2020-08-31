@@ -9,8 +9,7 @@ module.exports = {
       options: {
         objects: ["Price"],
         secretKey: `${process.env.STRIPE_SECRET_KEY}`,
-        downloadFiles: true,
-        auth: false,
+        downloadFiles: false,
       },
     },
   ],
