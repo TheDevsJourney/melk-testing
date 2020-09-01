@@ -6,8 +6,8 @@
  */
 
 const stripe = require("stripe")(`${process.env.STRIPE_SECRET_KEY}`)
-const validateCartItems = require("use-shopping-cart/src/serverUtil")
-  .validateCartItems
+// const validateCartItems = require("use-shopping-cart/src/serverUtil")
+//   .validateCartItems
 
 /*
  * Product data can be loaded from anywhere. In this case, we’re loading it from
@@ -23,7 +23,8 @@ exports.handler = async event => {
   try {
     const productJSON = JSON.parse(event.body)
 
-    const line_items = validateCartItems(inventory, productJSON)
+    // const line_items = validateCartItems(inventory, productJSON)
+    const line_items = productJSON
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
@@ -39,7 +40,7 @@ exports.handler = async event => {
        * https://docs.netlify.com/configure-builds/environment-variables/
        */
       success_url: `${process.env.URL}/`,
-      cancel_url: process.env.URL,
+      cancel_url: `${process.env.URL}/`,
       line_items,
     })
 
