@@ -6,51 +6,29 @@ const headers = {
   "Access-Control-Allow-Headers": "Content-Type",
 }
 
-// exports.handler = async event => {
-//   const { sku } = JSON.parse(event.body)
-
-//   let product
-
-//   try {
-//     product = await stripe.products.update(sku, {
-//       metadata: { quantity: "0" },
-//       active: "false",
-//     })
-//   } catch (e) {
-//     console.error(e.message)
-//   }
-
-//   return {
-//     statusCode,
-//     headers,
-//     body: JSON.stringify({
-//       status: "worked",
-//       message: "Did it work?",
-//     }),
-//   }
-// }
-
 // Testing
 exports.handler = async event => {
   const sku = JSON.parse(event.body)
   console.log(sku)
 
-  let product
-  try {
-    product = await stripe.products.update(`${sku.id}`, {
-      metadata: { Quantity: 0 },
-      active: "false",
-    })
-  } catch (e) {
-    console.error(e.message)
-  }
+  return stripe.products.update(`${sku.id}`, {
+    metadata: { Quantity: 0 },
+    active: "false",
+  })
 
-  return {
-    statusCode,
-    headers,
-    body: JSON.stringify({
-      status: "worked",
-      message: "Did it work?",
-    }),
-  }
+  //   try {
+  //     const product = await stripe.products.update(`${sku.id}`, {
+  //       metadata: { Quantity: 0 },
+  //       active: "false",
+  //     })
+  //   }
+
+  //   return {
+  //     statusCode,
+  //     headers,
+  //     body: JSON.stringify({
+  //       status: "worked",
+  //       message: "Did it work?",
+  //     }),
+  //   }
 }
