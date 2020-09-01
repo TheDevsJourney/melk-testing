@@ -36,8 +36,6 @@ const Cart = () => {
       <p>Number of Items: {cartCount}</p>
       <p>Total: {formattedTotalPrice}</p>
 
-      <button onClick={() => update()}>Press me</button>
-
       {/* Redirects the user to Stripe */}
       <button
         role="link"
