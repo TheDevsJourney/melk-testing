@@ -25,7 +25,9 @@ const Cart = () => {
   } = useShoppingCart()
 
   const update = async () => {
-    await fetch("api/helloWorld")
+    const res = await fetch("api/helloWorld")
+    const data = await res.json()
+    console.log(data)
   }
 
   return (
