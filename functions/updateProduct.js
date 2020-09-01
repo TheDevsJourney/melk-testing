@@ -36,8 +36,8 @@ exports.handler = async event => {
 
   let product
   try {
-    product = await stripe.products.update(sku, {
-      metadata: { Quantity: "0" },
+    product = await stripe.products.update(`${sku}`, {
+      metadata: { Quantity: 0 },
       active: "false",
     })
   } catch (e) {
