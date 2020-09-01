@@ -46,7 +46,7 @@ export default props => (
             price: price.unit_amount,
             currency: price.currency,
             image: price.product.images,
-            // quantity: price.product.metadata.Quantity
+            quantity: price.product.metadata.Quantity,
           }
           return <ProductCart key={price.id} product={newProduct} />
         })}

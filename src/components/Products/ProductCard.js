@@ -47,30 +47,36 @@ const ProductCard = ({ product }) => {
           currency: product.currency,
         })}
       </p>
-      <button
-        id={`checkout-button-${product.sku}`}
-        role="link"
-        style={buttonStyles}
-        onClick={() => {
-          // Check to see if object.keys(cartDetails) has a match
-          if (Object.keys(cartDetails).includes(product.sku)) {
-            return
-          }
-          // For Testing Purposes
-          // if (product.quantity < 1) {
-          //   return
-          // }
-          addItem(product)
-        }}
-      >
-        {Object.keys(cartDetails).includes(product.sku)
-          ? "ADDED"
-          : "ADD TO CART"}
-      </button>
+      {product.quantity < 1 ? (
+        <button>Out Of Stock</button>
+      ) : (
+        <button
+          id={`checkout-button-${product.sku}`}
+          role="link"
+          style={buttonStyles}
+          onClick={() => {
+            // Check to see if object.keys(cartDetails) has a match
+            if (Object.keys(cartDetails).includes(product.sku)) {
+              return
+            }
+            // For Testing Purposes
+            // if (product.quantity < 1) {
+            //   return
+            // }
+            addItem(product)
+          }}
+        >
+          {Object.keys(cartDetails).includes(product.sku)
+            ? "ADDED"
+            : "ADD TO CART"}
+        </button>
+      )}
 
-      <button style={buttonStyles} onClick={() => removeItem(product.sku)}>
-        Remove Item
-      </button>
+      {product.quantity > 0 && (
+        <button style={buttonStyles} onClick={() => removeItem(product.sku)}>
+          Remove Item
+        </button>
+      )}
     </div>
   )
 }
