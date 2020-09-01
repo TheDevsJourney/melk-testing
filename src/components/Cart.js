@@ -25,7 +25,7 @@ const Cart = () => {
   } = useShoppingCart()
 
   const update = async () => {
-    await fetch("/api/helloWorld")
+    await fetch("api/helloWorld")
   }
 
   return (
