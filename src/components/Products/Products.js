@@ -15,7 +15,7 @@ export default props => (
     query={graphql`
       query ProductPrices {
         prices: allStripePrice(
-          filter: { active: { eq: true }, currency: { eq: "usd" } }
+          filter: { product: { active: { eq: true } } }
           sort: { fields: [unit_amount] }
         ) {
           edges {
@@ -47,6 +47,7 @@ export default props => (
             currency: price.currency,
             image: price.product.images,
             quantity: price.product.metadata.Quantity,
+            active: price.active,
           }
           return <ProductCart key={price.id} product={newProduct} />
         })}

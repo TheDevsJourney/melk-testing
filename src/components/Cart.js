@@ -24,10 +24,36 @@ const Cart = () => {
     clearCart,
   } = useShoppingCart()
 
-  const update = async () => {
-    const res = await fetch("/api/helloWorld")
-    const data = await res.json()
-    console.log(data)
+  // const handleClick = async e => {
+  //   e.preventDefault()
+  //   try {
+  //     const res = await fetch("/api/getProducts", {
+  //       method: "GET",
+  //     })
+  //     const data = await res.json()
+  //     console.log(data)
+  //   } catch (error) {
+  //     console.error(error)
+  //   }
+  // }
+
+  let dataSkus
+  /** Query live data from Stripe and update products */
+  const updateProducts = async () => {
+    const { data, error } = await fetch("/api/skuList")
+      .then(response => response.json())
+      .catch(error => console.error(error))
+
+    if (error) {
+      console.error(error)
+      return
+    }
+
+    dataSkus = data
+
+    // const [liveProducts, liveSkus] = mergeStripeData(data, products)
+    // setProducts(liveProducts)
+    // setSkus(liveSkus)
   }
 
   return (
@@ -36,18 +62,23 @@ const Cart = () => {
       <p>Number of Items: {cartCount}</p>
       <p>Total: {formattedTotalPrice}</p>
 
+      <button onClick={updateProducts}>Testing Stuff</button>
+      <pre>{dataSkus}</pre>
+
       {/* Redirects the user to Stripe */}
-      <button
-        role="link"
-        style={buttonStyles}
-        disabled={loading}
-        onClick={() => {
-          setLoading(true)
-          redirectToCheckout()
-        }}
-      >
-        {loading ? "Loading..." : "Checkout"}
-      </button>
+      {cartCount !== 0 && (
+        <button
+          role="link"
+          style={buttonStyles}
+          disabled={loading}
+          onClick={() => {
+            setLoading(true)
+            redirectToCheckout()
+          }}
+        >
+          {loading ? "Loading..." : "Checkout"}
+        </button>
+      )}
       <button style={buttonStyles} onClick={clearCart}>
         Clear cart
       </button>

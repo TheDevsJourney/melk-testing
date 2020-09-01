@@ -47,7 +47,7 @@ const ProductCard = ({ product }) => {
           currency: product.currency,
         })}
       </p>
-      {product.quantity < 1 ? (
+      {!product.active ? (
         <button>Out Of Stock</button>
       ) : (
         <button
