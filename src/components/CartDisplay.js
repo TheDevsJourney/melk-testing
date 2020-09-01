@@ -8,7 +8,6 @@ const CartDisplay = () => {
     formattedTotalPrice,
     redirectToCheckout,
     clearCart,
-    setItemQuantity,
   } = useShoppingCart()
 
   const handleSubmit = async event => {
@@ -77,9 +76,9 @@ const CartDisplay = () => {
         })}
         <h3>Total Items in Cart: {cartCount}</h3>
         <h3>Total Price: {formattedTotalPrice}</h3>
-        <div as={"form"} action={"api/createSession"} method="POST">
+        <form action={"api/createSession"} method="POST">
           <button onClick={handleSubmit}>Checkout</button>
-        </div>
+        </form>
         <button onClick={() => clearCart()}>Clear Cart Items</button>
       </div>
     )
