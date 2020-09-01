@@ -13,7 +13,7 @@ exports.handler = async event => {
 
   return stripe.products.update("prod_HrhMl8JQCWOdXp", {
     metadata: { Quantity: 0 },
-    // active: "false",
+    active: "false",
   })
 }
 // `${sku.data.object.id}`
