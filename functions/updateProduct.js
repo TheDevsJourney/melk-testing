@@ -32,7 +32,8 @@ const headers = {
 
 // Testing
 exports.handler = async event => {
-  const { sku } = JSON.parse(event.body)
+  const sku = JSON.parse(event.body)
+  console.log(sku)
 
   let product
   try {
