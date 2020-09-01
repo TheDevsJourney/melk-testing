@@ -7,15 +7,15 @@
 // }
 
 // exports.handler = async event => {
-//   const { sku, quantity } = JSON.parse(event.body)
+//   const { sku } = JSON.parse(event.body)
 
 //   let product
 
 //   try {
-//     product = await stripe.products.update(
-//       sku,
-//       { metadata: { quantity: "0" }, active: "false" }
-//     )
+//     product = await stripe.products.update(sku, {
+//       metadata: { quantity: "0" },
+//       active: "false",
+//     })
 //   } catch (e) {
 //     console.error(e.message)
 //   }

@@ -24,11 +24,17 @@ const Cart = () => {
     clearCart,
   } = useShoppingCart()
 
+  const update = async () => {
+    await fetch("/api/helloWorld")
+  }
+
   return (
     <div>
       {/* This is where we'll render our cart */}
       <p>Number of Items: {cartCount}</p>
       <p>Total: {formattedTotalPrice}</p>
+
+      <button onClick={() => update()}>Press me</button>
 
       {/* Redirects the user to Stripe */}
       <button
