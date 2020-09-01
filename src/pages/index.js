@@ -1,7 +1,6 @@
 import React from "react"
 import Products from "../components/Products/Products"
-// import Cart from "../components/Cart"
-import CartDisplay from "../components/CartDisplay"
+import Cart from "../components/Cart"
 import Layout from "../components/Layout"
 import { CartProvider } from "use-shopping-cart"
 import { loadStripe } from "@stripe/stripe-js"
@@ -20,8 +19,7 @@ const Home = () => {
         allowedCountries={["US"]}
         billingAddressCollection={true}
       >
-        {/* <Cart /> */}
-        <CartDisplay />
+        <Cart />
         <Products />
       </CartProvider>
     </Layout>
