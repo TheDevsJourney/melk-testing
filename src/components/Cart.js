@@ -40,7 +40,7 @@ const Cart = () => {
   let dataSkus
   /** Query live data from Stripe and update products */
   const updateProducts = async () => {
-    const { data, error } = await fetch("/api/skuList")
+    const { data, error } = await fetch("api/skuList")
       .then(response => response.json())
       .catch(error => console.error(error))
 
