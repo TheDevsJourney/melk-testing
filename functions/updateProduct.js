@@ -11,7 +11,7 @@ exports.handler = async event => {
   const sku = JSON.parse(event.body)
   console.log(sku)
 
-  return stripe.products.update(`${sku.id}`, {
+  return stripe.products.update(`${sku.data.object.id}`, {
     metadata: { Quantity: 0 },
     active: "false",
   })
