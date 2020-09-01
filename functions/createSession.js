@@ -5,7 +5,7 @@
  * @see https://stripe.com/docs/payments/checkout/one-time
  */
 
-const stripe = require("stripe")(process.env.REACT_APP_STRIPE_API_SECRET)
+const stripe = require("stripe")(`${process.env.STRIPE_SECRET_KEY}`)
 const validateCartItems = require("use-shopping-cart/src/serverUtil")
   .validateCartItems
 
