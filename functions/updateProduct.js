@@ -11,24 +11,10 @@ exports.handler = async event => {
   const sku = JSON.parse(event.body)
   console.log(sku)
 
-  return stripe.products.update(`${sku.data.object.id}`, {
+  return stripe.products.update("prod_HrhMl8JQCWOdXp", {
     metadata: { Quantity: 0 },
-    active: "false",
+    // active: "false",
   })
-
-  //   try {
-  //     const product = await stripe.products.update(`${sku.id}`, {
-  //       metadata: { Quantity: 0 },
-  //       active: "false",
-  //     })
-  //   }
-
-  //   return {
-  //     statusCode,
-  //     headers,
-  //     body: JSON.stringify({
-  //       status: "worked",
-  //       message: "Did it work?",
-  //     }),
-  //   }
 }
+// `${sku.data.object.id}`
+// Need to find a way to run the webhook from the code, and the serverless function from the code so I can pass in the product ID
