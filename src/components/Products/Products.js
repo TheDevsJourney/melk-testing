@@ -30,6 +30,7 @@ export default props => (
                 metadata {
                   Quantity
                 }
+                images
               }
             }
           }
