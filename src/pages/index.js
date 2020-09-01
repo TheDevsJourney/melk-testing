@@ -14,8 +14,8 @@ const Home = () => {
         mode="client-only"
         stripe={stripePromise}
         currency="USD"
-        successUrl="http://localhost:8000/"
-        cancelUrl="http://localhost:8000"
+        successUrl="https://elated-lamarr-b45c38.netlify.app/"
+        cancelUrl="https://elated-lamarr-b45c38.netlify.app/"
         allowedCountries={["US"]}
         billingAddressCollection={true}
       >
