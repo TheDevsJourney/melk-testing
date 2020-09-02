@@ -16,6 +16,8 @@ const buttonStyles = {
 
 const Cart = () => {
   const [loading, setLoading] = useState(false)
+  const [products, setProducts] = useState([])
+
   /* Gets the totalPrice and a method for redirecting to stripe */
   const {
     formattedTotalPrice,
@@ -31,10 +33,15 @@ const Cart = () => {
         "https://elated-lamarr-b45c38.netlify.app/.netlify/functions/getProducts"
       )
         .then(response => response.json())
-        .then(data => console.log(data.data))
+        .then(res => {
+          res.data.map(product => {
+            setProducts(...products, product)
+          })
+        })
     } catch (error) {
       console.error(error)
     }
+    console.log(products)
   }
 
   return (
