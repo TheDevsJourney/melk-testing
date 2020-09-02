@@ -29,7 +29,9 @@ const Cart = () => {
   //  Use this before adding items to the cart and checking out to see if any items are Active = false
   const handleSubmit = async () => {
     try {
-      await fetch("api/getProducts")
+      await fetch(
+        "https://elated-lamarr-b45c38.netlify.app/.netlify/functions/getProducts"
+      )
         .then(response => response.json())
         .then(res => setProducts(res.data))
     } catch (error) {
