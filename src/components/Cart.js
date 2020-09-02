@@ -58,16 +58,16 @@ const Cart = () => {
     // }
   }
 
-  const handleError = err => {
-    console.error(err)
-    let resp = new Response(
-      JSON.stringify({
-        code: 400,
-        message: "Something went wrong.",
-      })
-    )
-    return resp
-  }
+  // const handleError = err => {
+  //   console.error(err)
+  //   let resp = new Response(
+  //     JSON.stringify({
+  //       code: 400,
+  //       message: "Something went wrong.",
+  //     })
+  //   )
+  //   return resp
+  // }
 
   return (
     <div>
