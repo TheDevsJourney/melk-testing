@@ -24,37 +24,36 @@ const Cart = () => {
     clearCart,
   } = useShoppingCart()
 
-  // const handleClick = async e => {
-  //   e.preventDefault()
-  //   try {
-  //     const res = await fetch("/api/getProducts", {
-  //       method: "GET",
-  //     })
-  //     const data = await res.json()
-  //     console.log(data)
-  //   } catch (error) {
-  //     console.error(error)
-  //   }
-  // }
-
-  let dataSkus
-  /** Query live data from Stripe and update products */
-  const updateProducts = async () => {
-    const { data, error } = await fetch("api/skuList")
-      .then(response => response.json())
-      .catch(error => console.error(error))
-
-    if (error) {
+  const handleClick = async e => {
+    e.preventDefault()
+    try {
+      const response = await fetch("api/getProducts", {
+        method: "get",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then(res => {
+        return res.json()
+      })
+    } catch (error) {
       console.error(error)
-      return
     }
-
-    dataSkus = data
-
-    // const [liveProducts, liveSkus] = mergeStripeData(data, products)
-    // setProducts(liveProducts)
-    // setSkus(liveSkus)
   }
+
+  // let dataSkus
+  /** Query live data from Stripe and update products */
+  // const updateProducts = async () => {
+  //   const { data, error } = await fetch("api/skuList")
+  //     .then(response => response.json())
+  //     .catch(error => console.error(error))
+
+  //   if (error) {
+  //     console.error(error)
+  //     return
+  //   }
+
+  //   dataSkus = data
+  // }
 
   return (
     <div>
@@ -62,8 +61,7 @@ const Cart = () => {
       <p>Number of Items: {cartCount}</p>
       <p>Total: {formattedTotalPrice}</p>
 
-      <button onClick={updateProducts}>Testing Stuff</button>
-      <pre>{dataSkus}</pre>
+      <button onClick={handleClick}>Testing Stuff</button>
 
       {/* Redirects the user to Stripe */}
       {cartCount !== 0 && (
