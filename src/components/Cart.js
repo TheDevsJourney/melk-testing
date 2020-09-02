@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 
 import { useShoppingCart } from "use-shopping-cart"
 
@@ -29,9 +29,7 @@ const Cart = () => {
   //  Use this before adding items to the cart and checking out to see if any items are Active = false
   const handleSubmit = async () => {
     try {
-      await fetch(
-        "https://elated-lamarr-b45c38.netlify.app/.netlify/functions/getProducts"
-      )
+      await fetch("api/getProducts")
         .then(response => response.json())
         .then(res => setProducts(res.data))
     } catch (error) {
@@ -39,6 +37,11 @@ const Cart = () => {
     }
     console.log(products)
   }
+
+  useEffect(() => {
+    console.log("loaded...")
+    handleSubmit()
+  })
 
   return (
     <div>
