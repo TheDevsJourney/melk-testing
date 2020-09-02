@@ -1,26 +1,5 @@
 import React, { useState, useEffect } from "react"
-
 import { useShoppingCart } from "use-shopping-cart"
-
-// useEffect(() => {
-//   console.log("loaded...")
-//   handleSubmit()
-// })
-
-const [products, setProducts] = useState()
-
-const handleSubmit = async () => {
-  try {
-    await fetch(
-      "https://elated-lamarr-b45c38.netlify.app/.netlify/functions/getProducts"
-    )
-      .then(response => response.json())
-      .then(res => setProducts(res.data))
-  } catch (error) {
-    console.error(error)
-  }
-  console.log(products)
-}
 
 const buttonStyles = {
   fontSize: "13px",
@@ -36,7 +15,7 @@ const buttonStyles = {
 
 const Cart = () => {
   const [loading, setLoading] = useState(false)
-  // const [products, setProducts] = useState()
+  const [products, setProducts] = useState()
 
   /* Gets the totalPrice and a method for redirecting to stripe */
   const {
@@ -47,18 +26,44 @@ const Cart = () => {
   } = useShoppingCart()
 
   //  Use this before adding items to the cart and checking out to see if any items are Active = false
-  // const handleSubmit = async () => {
-  //   try {
-  //     await fetch(
-  //       "https://elated-lamarr-b45c38.netlify.app/.netlify/functions/getProducts"
-  //     )
-  //       .then(response => response.json())
-  //       .then(res => setProducts(res.data))
-  //   } catch (error) {
-  //     console.error(error)
-  //   }
-  //   console.log(products)
-  // }
+  const handleSubmit = async () => {
+    // try {
+    //   await fetch(
+    //     "https://elated-lamarr-b45c38.netlify.app/.netlify/functions/getProducts"
+    //   )
+    //     .then(response => response.json())
+    //     .then(res => setProducts(res.data))
+    // } catch (error) {
+    //   console.error(error)
+    // }
+    // console.log(products)
+
+    let data = await (
+      await fetch(
+        "https://elated-lamarr-b45c38.netlify.app/.netlify/functions/getProducts"
+      ).catch(handleError)
+    ).json()
+
+    if (data.code && data.code === 400) {
+      // Problem
+      return
+    }
+
+    setProducts(data)
+
+    console.log(products)
+  }
+
+  const handleError = err => {
+    console.error(err)
+    let resp = new Response(
+      JSON.stringify({
+        code: 400,
+        message: "Something went wrong.",
+      })
+    )
+    return resp
+  }
 
   return (
     <div>
