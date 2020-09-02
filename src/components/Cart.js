@@ -51,10 +51,9 @@ const Cart = () => {
       console.log(error)
     }
 
-    if (data.code && data.code === 400) {
-      // Problem
-      return
-    }
+    // if (data.code && data.code === 400) {
+    //   return
+    // }
   }
 
   const handleError = err => {
