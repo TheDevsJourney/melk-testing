@@ -16,7 +16,7 @@ const buttonStyles = {
 
 const Cart = () => {
   const [loading, setLoading] = useState(false)
-  const [products, setProducts] = useState([])
+  // const [products, setProducts] = useState()
 
   /* Gets the totalPrice and a method for redirecting to stripe */
   const {
@@ -35,7 +35,8 @@ const Cart = () => {
         .then(response => response.json())
         .then(res => {
           res.data.map(product => {
-            setProducts(...products, product)
+            // setProducts(...products, product)
+            console.log(product)
           })
         })
     } catch (error) {
