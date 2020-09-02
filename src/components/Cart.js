@@ -43,8 +43,7 @@ const Cart = () => {
   //   }
   // }
 
-  const handleStuff = async e => {
-    e.preventDefault()
+  const handleStuff = async () => {
     await fetch(
       "https://elated-lamarr-b45c38.netlify.app/.netlify/functions/getProducts"
     )
