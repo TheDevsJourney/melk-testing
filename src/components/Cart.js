@@ -24,23 +24,32 @@ const Cart = () => {
     clearCart,
   } = useShoppingCart()
 
-  const handleClick = async e => {
+  // const handleClick = async e => {
+  //   e.preventDefault()
+  //   try {
+  //     const response = await fetch(
+  //       "https://elated-lamarr-b45c38.netlify.app/.netlify/functions/getProducts",
+  //       {
+  //         method: "get",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //       }
+  //     ).then(res => {
+  //       return res.json()
+  //     })
+  //   } catch (error) {
+  //     console.error(error)
+  //   }
+  // }
+
+  const handleStuff = async e => {
     e.preventDefault()
-    try {
-      const response = await fetch(
-        "https://elated-lamarr-b45c38.netlify.app/.netlify/functions/getProducts",
-        {
-          method: "get",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      ).then(res => {
-        return res.json()
-      })
-    } catch (error) {
-      console.error(error)
-    }
+    await fetch(
+      "https://elated-lamarr-b45c38.netlify.app/.netlify/functions/getProducts"
+    )
+      .then(response => response.json())
+      .then(console.log)
   }
 
   // let dataSkus
@@ -64,7 +73,7 @@ const Cart = () => {
       <p>Number of Items: {cartCount}</p>
       <p>Total: {formattedTotalPrice}</p>
 
-      <button onClick={handleClick}>Testing Stuff</button>
+      <button onClick={() => handleStuff()}>Testing Stuff</button>
 
       {/* Redirects the user to Stripe */}
       {cartCount !== 0 && (
