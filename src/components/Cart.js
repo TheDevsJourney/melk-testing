@@ -49,7 +49,7 @@ const Cart = () => {
       return
     }
 
-    setProducts(data)
+    setProducts(data.data)
 
     console.log(products)
   }
