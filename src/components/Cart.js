@@ -17,6 +17,10 @@ const Cart = () => {
   const [loading, setLoading] = useState(false)
   const [products, setProducts] = useState()
 
+  useEffect(() => {
+    handleSubmit()
+  }, [])
+
   /* Gets the totalPrice and a method for redirecting to stripe */
   const {
     formattedTotalPrice,
@@ -29,45 +33,45 @@ const Cart = () => {
 
   //  Use this before adding items to the cart and checking out to see if any items are Active = false
   const handleSubmit = async () => {
-    try {
-      await fetch(
-        "https://elated-lamarr-b45c38.netlify.app/.netlify/functions/getProducts"
-      )
-        .then(response => response.json())
-        .then(res => setProducts(res.data))
-        .then(console.log(products))
-    } catch (error) {
-      console.error(error)
-    }
-
     // try {
-    //   let data = await (
-    //     await fetch(
-    //       "https://elated-lamarr-b45c38.netlify.app/.netlify/functions/getProducts"
-    //     ).catch(handleError)
-    //   ).json()
-
-    //   setProducts(data.data)
-    //   console.log(products)
+    //   await fetch(
+    //     "https://elated-lamarr-b45c38.netlify.app/.netlify/functions/getProducts"
+    //   )
+    //     .then(response => response.json())
+    //     .then(res => setProducts(res.data))
+    //     .then(console.log(products))
     // } catch (error) {
-    //   console.log(error)
+    //   console.error(error)
     // }
+
+    try {
+      let data = await (
+        await fetch(
+          "https://elated-lamarr-b45c38.netlify.app/.netlify/functions/getProducts"
+        ).catch(handleError)
+      ).json()
+
+      setProducts(data.data)
+      console.log(products)
+    } catch (error) {
+      console.log(error)
+    }
 
     // if (data.code && data.code === 400) {
     //   return
     // }
   }
 
-  // const handleError = err => {
-  //   console.error(err)
-  //   let resp = new Response(
-  //     JSON.stringify({
-  //       code: 400,
-  //       message: "Something went wrong.",
-  //     })
-  //   )
-  //   return resp
-  // }
+  const handleError = err => {
+    console.error(err)
+    let resp = new Response(
+      JSON.stringify({
+        code: 400,
+        message: "Something went wrong.",
+      })
+    )
+    return resp
+  }
 
   return (
     <div>
