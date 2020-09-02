@@ -29,29 +29,29 @@ const Cart = () => {
 
   //  Use this before adding items to the cart and checking out to see if any items are Active = false
   const handleSubmit = async () => {
-    // try {
-    //   await fetch(
-    //     "https://elated-lamarr-b45c38.netlify.app/.netlify/functions/getProducts"
-    //   )
-    //     .then(response => response.json())
-    //     .then(res => setProducts(res.data))
-    // } catch (error) {
-    //   console.error(error)
-    // }
-    // console.log(products)
-
     try {
-      let data = await (
-        await fetch(
-          "https://elated-lamarr-b45c38.netlify.app/.netlify/functions/getProducts"
-        ).catch(handleError)
+      await fetch(
+        "https://elated-lamarr-b45c38.netlify.app/.netlify/functions/getProducts"
       )
-        .json()
-        .then(setProducts(data.data))
+        .then(response => response.json())
+        .then(res => setProducts(res.data))
         .then(console.log(products))
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
+
+    // try {
+    //   let data = await (
+    //     await fetch(
+    //       "https://elated-lamarr-b45c38.netlify.app/.netlify/functions/getProducts"
+    //     ).catch(handleError)
+    //   ).json()
+
+    //   setProducts(data.data)
+    //   console.log(products)
+    // } catch (error) {
+    //   console.log(error)
+    // }
 
     // if (data.code && data.code === 400) {
     //   return
