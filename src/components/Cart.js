@@ -24,32 +24,14 @@ const Cart = () => {
     clearCart,
   } = useShoppingCart()
 
-  // const handleClick = async e => {
-  //   e.preventDefault()
-  //   try {
-  //     const response = await fetch(
-  //       "https://elated-lamarr-b45c38.netlify.app/.netlify/functions/getProducts",
-  //       {
-  //         method: "get",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //       }
-  //     ).then(res => {
-  //       return res.json()
-  //     })
-  //   } catch (error) {
-  //     console.error(error)
-  //   }
-  // }
-
-  const handleStuff = async () => {
+  //  Use this before adding items to the cart and checking out to see if any items are Active = false
+  const handleSubmit = async () => {
     try {
       await fetch(
         "https://elated-lamarr-b45c38.netlify.app/.netlify/functions/getProducts"
       )
         .then(response => response.json())
-        .then(data => console.log(data))
+        .then(data => console.log(data.data))
     } catch (error) {
       console.error(error)
     }
@@ -61,7 +43,7 @@ const Cart = () => {
       <p>Number of Items: {cartCount}</p>
       <p>Total: {formattedTotalPrice}</p>
 
-      <button onClick={() => handleStuff()}>Testing Stuff</button>
+      <button onClick={() => handleSubmit()}>Testing Stuff</button>
 
       {/* Redirects the user to Stripe */}
       {cartCount !== 0 && (
