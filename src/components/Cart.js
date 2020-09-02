@@ -32,7 +32,7 @@ const Cart = () => {
       await fetch(
         "https://elated-lamarr-b45c38.netlify.app/.netlify/functions/getProducts"
       )
-        .then(response => response.json())
+        // .then(response => response.json())
         .then(res => setProducts(res.data))
     } catch (error) {
       console.error(error)
