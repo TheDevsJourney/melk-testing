@@ -46,7 +46,7 @@ const Cart = () => {
       <p>Number of Items: {cartCount}</p>
       <p>Total: {formattedTotalPrice}</p>
 
-      <button onClick={() => handleSubmit()}>Testing Stuff</button>
+      <button onClick={handleSubmit}>Testing Stuff</button>
 
       {/* Redirects the user to Stripe */}
       {cartCount !== 0 && (
