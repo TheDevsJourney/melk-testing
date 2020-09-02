@@ -38,20 +38,23 @@ const Cart = () => {
     // }
     // console.log(products)
 
-    let data = await (
-      await fetch(
-        "https://elated-lamarr-b45c38.netlify.app/.netlify/functions/getProducts"
-      ).catch(handleError)
-    ).json()
+    try {
+      let data = await (
+        await fetch(
+          "https://elated-lamarr-b45c38.netlify.app/.netlify/functions/getProducts"
+        ).catch(handleError)
+      ).json()
+
+      setProducts(data.data)
+      console.log(products)
+    } catch (error) {
+      console.log(error)
+    }
 
     if (data.code && data.code === 400) {
       // Problem
       return
     }
-
-    setProducts(data.data)
-
-    console.log(products)
   }
 
   const handleError = err => {
