@@ -44,27 +44,16 @@ const Cart = () => {
   // }
 
   const handleStuff = async () => {
-    await fetch(
-      "https://elated-lamarr-b45c38.netlify.app/.netlify/functions/getProducts"
-    )
-      .then(response => response.json())
-      .then(console.log)
+    try {
+      await fetch(
+        "https://elated-lamarr-b45c38.netlify.app/.netlify/functions/getProducts"
+      )
+        .then(response => response.json())
+        .then(data => console.log(data))
+    } catch (error) {
+      console.error(error)
+    }
   }
-
-  // let dataSkus
-  /** Query live data from Stripe and update products */
-  // const updateProducts = async () => {
-  //   const { data, error } = await fetch("api/skuList")
-  //     .then(response => response.json())
-  //     .catch(error => console.error(error))
-
-  //   if (error) {
-  //     console.error(error)
-  //     return
-  //   }
-
-  //   dataSkus = data
-  // }
 
   return (
     <div>
