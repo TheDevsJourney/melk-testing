@@ -27,12 +27,15 @@ const Cart = () => {
   const handleClick = async e => {
     e.preventDefault()
     try {
-      const response = await fetch("api/getProducts", {
-        method: "get",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }).then(res => {
+      const response = await fetch(
+        "https://elated-lamarr-b45c38.netlify.app/.netlify/functions/getProducts",
+        {
+          method: "get",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      ).then(res => {
         return res.json()
       })
     } catch (error) {
