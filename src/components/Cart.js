@@ -45,10 +45,10 @@ const Cart = () => {
         await fetch(
           "https://elated-lamarr-b45c38.netlify.app/.netlify/functions/getProducts"
         ).catch(handleError)
-      ).json()
-
-      setProducts(data.data)
-      console.log(products)
+      )
+        .json()
+        .then(setProducts(data.data))
+        .then(console.log(products))
     } catch (error) {
       console.log(error)
     }
