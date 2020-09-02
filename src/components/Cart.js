@@ -23,6 +23,8 @@ const Cart = () => {
     redirectToCheckout,
     cartCount,
     clearCart,
+    cartDetails,
+    validateCartItems,
   } = useShoppingCart()
 
   //  Use this before adding items to the cart and checking out to see if any items are Active = false
@@ -47,6 +49,10 @@ const Cart = () => {
 
       setProducts(data.data)
       console.log(products)
+
+      // Test test
+      const line_items = validateCartItems(products, cartDetails)
+      console.log(line_items)
     } catch (error) {
       console.log(error)
     }
