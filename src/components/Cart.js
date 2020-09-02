@@ -44,34 +44,42 @@ const Cart = () => {
     //   console.error(error)
     // }
 
-    try {
-      let data = await (
-        await fetch(
-          "https://elated-lamarr-b45c38.netlify.app/.netlify/functions/getProducts"
-        ).catch(handleError)
-      ).json()
+    // try {
+    //   let data = await (
+    //     await fetch(
+    //       "https://elated-lamarr-b45c38.netlify.app/.netlify/functions/getProducts"
+    //     ).catch(handleError)
+    //   ).json()
 
-      setProducts(data.data)
-      console.log(products)
-    } catch (error) {
-      console.log(error)
-    }
+    //   setProducts(data.data)
+    //   console.log(products)
+    // } catch (error) {
+    //   console.log(error)
+    // }
 
     // if (data.code && data.code === 400) {
     //   return
     // }
+
+    // Another way
+    const endpoint =
+      "https://elated-lamarr-b45c38.netlify.app/.netlify/functions/getProducts"
+    const data = await fetch(endpoint)
+    const res = await data.json()
+    setProducts(res)
+    console.log(res)
   }
 
-  const handleError = err => {
-    console.error(err)
-    let resp = new Response(
-      JSON.stringify({
-        code: 400,
-        message: "Something went wrong.",
-      })
-    )
-    return resp
-  }
+  // const handleError = err => {
+  //   console.error(err)
+  //   let resp = new Response(
+  //     JSON.stringify({
+  //       code: 400,
+  //       message: "Something went wrong.",
+  //     })
+  //   )
+  //   return resp
+  // }
 
   return (
     <div>
