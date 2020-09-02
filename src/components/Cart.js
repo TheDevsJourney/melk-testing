@@ -33,11 +33,7 @@ const Cart = () => {
         "https://elated-lamarr-b45c38.netlify.app/.netlify/functions/getProducts"
       )
         .then(response => response.json())
-        .then(res => {
-          res.data.map(product => {
-            setProducts(product)
-          })
-        })
+        .then(res => setProducts(res.data))
     } catch (error) {
       console.error(error)
     }
