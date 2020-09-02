@@ -40,11 +40,6 @@ const Cart = () => {
     console.log(products)
   }
 
-  useEffect(() => {
-    console.log("loaded...")
-    handleSubmit()
-  })
-
   return (
     <div>
       {/* This is where we'll render our cart */}
