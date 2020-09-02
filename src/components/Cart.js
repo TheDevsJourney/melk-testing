@@ -49,10 +49,6 @@ const Cart = () => {
 
       setProducts(data.data)
       console.log(products)
-
-      // Test test
-      const line_items = validateCartItems(products, cartDetails)
-      console.log(line_items)
     } catch (error) {
       console.log(error)
     }
