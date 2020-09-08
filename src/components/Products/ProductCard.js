@@ -1,4 +1,5 @@
 import React from "react"
+import { Link } from "gatsby"
 
 import { useShoppingCart, formatCurrencyString } from "use-shopping-cart"
 
@@ -29,17 +30,13 @@ const buttonStyles = {
   letterSpacing: "1.5px",
 }
 
-// const buttonHide = {
-//   display: "none",
-// }
-
 const ProductCard = ({ product }) => {
   const { addItem, removeItem, cartDetails } = useShoppingCart()
 
   return (
     <div style={cardStyles}>
       <h4>{product.name}</h4>
-      <p>{product.quantity}</p>
+      {product.quantity >= 1 && <p>Quantity: {product.quantity}</p>}
       <p>
         Price:{" "}
         {formatCurrencyString({
@@ -48,7 +45,7 @@ const ProductCard = ({ product }) => {
         })}
       </p>
       {!product.active ? (
-        <button>Out Of Stock</button>
+        <p>Out of stock</p>
       ) : (
         <button
           id={`checkout-button-${product.sku}`}
@@ -56,6 +53,7 @@ const ProductCard = ({ product }) => {
           style={buttonStyles}
           onClick={() => {
             // Check to see if object.keys(cartDetails) has a match
+            console.log(product.sku)
             if (Object.keys(cartDetails).includes(product.sku)) {
               return
             }
@@ -63,6 +61,8 @@ const ProductCard = ({ product }) => {
             // if (product.quantity < 1) {
             //   return
             // }
+
+            // Run a product check function here to ensure that the product they want to add is available in the product state pulled in from stripe.
             addItem(product)
           }}
         >
@@ -77,6 +77,8 @@ const ProductCard = ({ product }) => {
           Remove Item
         </button>
       )}
+
+      <Link to={`/products/${product.name.toLowerCase()}`}>View Product</Link>
     </div>
   )
 }

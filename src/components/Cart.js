@@ -13,7 +13,7 @@ const buttonStyles = {
   letterSpacing: "1.5px",
 }
 
-const Cart = () => {
+const Cart = ({ toggle, setToggle }) => {
   const [loading, setLoading] = useState(false)
   const [products, setProducts] = useState()
 
@@ -28,66 +28,126 @@ const Cart = () => {
     cartCount,
     clearCart,
     cartDetails,
-    validateCartItems,
+    removeItem,
   } = useShoppingCart()
 
   //  Use this before adding items to the cart and checking out to see if any items are Active = false
+  //  Rename to something more appropriate for what it will actually do
   const handleSubmit = async () => {
-    // try {
-    //   await fetch(
-    //     "https://elated-lamarr-b45c38.netlify.app/.netlify/functions/getProducts"
-    //   )
-    //     .then(response => response.json())
-    //     .then(res => setProducts(res.data))
-    //     .then(console.log(products))
-    // } catch (error) {
-    //   console.error(error)
-    // }
-
-    // try {
-    //   let data = await (
-    //     await fetch(
-    //       "https://elated-lamarr-b45c38.netlify.app/.netlify/functions/getProducts"
-    //     ).catch(handleError)
-    //   ).json()
-
-    //   setProducts(data.data)
-    //   console.log(products)
-    // } catch (error) {
-    //   console.log(error)
-    // }
-
-    // if (data.code && data.code === 400) {
-    //   return
-    // }
-
-    // Another way
     const endpoint =
       "https://elated-lamarr-b45c38.netlify.app/.netlify/functions/getProducts"
     const data = await fetch(endpoint)
     const res = await data.json()
     setProducts(res)
-    console.log(res)
+    // console.log(res)
   }
 
-  // const handleError = err => {
-  //   console.error(err)
-  //   let resp = new Response(
-  //     JSON.stringify({
-  //       code: 400,
-  //       message: "Something went wrong.",
-  //     })
-  //   )
-  //   return resp
-  // }
+  // Will run a serverless function to retreive products to update state before a purchase
+  // Then run these functions as a safeguard to ensure the user does not have a product in their cart that is not available
+  let checkCartEntries = []
+  let cartNameSku = []
+  const checkCart = () => {
+    if (Object.keys(cartDetails).length < 1) {
+      return
+    }
+    // Grabs the Product name of items in the cart
+    Object.entries(cartDetails).map(entry => {
+      if (!checkCartEntries.includes(entry[1].name)) {
+        checkCartEntries.push(entry[1].name)
+        cartNameSku.push({ name: entry[1].name, sku: entry[1].sku })
+      }
+    })
+    console.log(checkCartEntries)
+    console.log(cartNameSku)
+    // Check to see if these items are available in the products state
+  }
+
+  // Check Product State
+  let checkProductEntries = []
+  const checkProducts = () => {
+    if (products === undefined || products.data.length < 1) {
+      return
+    }
+    products.data.map(product => {
+      if (
+        product.metadata.Quantity > 0 &&
+        !checkProductEntries.includes(product.name)
+      ) {
+        checkProductEntries.push(product.name)
+      }
+    })
+    console.log(checkProductEntries)
+  }
+
+  // Checks to see if any of the cart entries are not included in the product state
+  let outOfStockProducts = []
+  const checkCartAgainstProducts = () => {
+    // Run getProducts serverless function again
+    handleSubmit()
+    // Check cart
+    checkCart()
+    // check product
+    checkProducts()
+
+    // Check to see if the cart entries match what is available in product state, if not, push it to outofstock array.
+    checkCartEntries.map(cartEntry => {
+      if (!checkProductEntries.includes(cartEntry)) {
+        outOfStockProducts.push(cartEntry)
+      }
+    })
+
+    // If no out of stock products, can return out of this function. Otherwise, remove outofstock entries from the cart.
+    if (outOfStockProducts.length < 1) {
+      return
+    }
+    // Remove item from cart
+    outOfStockProducts.map(product => {
+      cartNameSku.map(nameSku => {
+        if (product === nameSku.name) {
+          removeItem(nameSku.sku)
+        }
+      })
+    })
+    console.log(outOfStockProducts)
+  }
 
   return (
-    <div>
+    <div className="cart">
       {/* This is where we'll render our cart */}
+      <h4
+        onClick={() => {
+          setToggle(false)
+        }}
+      >
+        X
+      </h4>
       <p>Number of Items: {cartCount}</p>
       <p>Total: {formattedTotalPrice}</p>
+      {/* Loop through each cartDetails item and display cart entries */}
+      {Object.entries(cartDetails).map(entry => (
+        <div className="cartItems">
+          <div className="cartItems-left">
+            <img src={entry[1].image[0]} height="55px" alt="" />
+            <div className="cartItems-details">
+              <h3 key={entry[1].sku}>{entry[1].name}</h3>
+              <p>{entry[1].price / 100}</p>
+            </div>
+          </div>
+          <p
+            style={{ color: "white", fontSize: "2.3rem", cursor: "pointer" }}
+            onClick={() => {
+              removeItem(entry[1].sku)
+            }}
+          >
+            X
+          </p>
+        </div>
+      ))}
 
-      <button onClick={handleSubmit}>Testing Stuff</button>
+      {/* <button onClick={handleSubmit}>Testing Stuff</button>
+      <button onClick={checkCart}>Check Cart</button>
+      <button onClick={checkProducts}>Check State</button> */}
+      <button onClick={checkCartAgainstProducts}>Check Out Of Stock</button>
 
       {/* Redirects the user to Stripe */}
       {cartCount !== 0 && (
@@ -111,3 +171,42 @@ const Cart = () => {
 }
 
 export default Cart
+
+// try {
+//   await fetch(
+//     "https://elated-lamarr-b45c38.netlify.app/.netlify/functions/getProducts"
+//   )
+//     .then(response => response.json())
+//     .then(res => setProducts(res.data))
+//     .then(console.log(products))
+// } catch (error) {
+//   console.error(error)
+// }
+
+// try {
+//   let data = await (
+//     await fetch(
+//       "https://elated-lamarr-b45c38.netlify.app/.netlify/functions/getProducts"
+//     ).catch(handleError)
+//   ).json()
+
+//   setProducts(data.data)
+//   console.log(products)
+// } catch (error) {
+//   console.log(error)
+// }
+
+// if (data.code && data.code === 400) {
+//   return
+// }
+
+// const handleError = err => {
+//   console.error(err)
+//   let resp = new Response(
+//     JSON.stringify({
+//       code: 400,
+//       message: "Something went wrong.",
+//     })
+//   )
+//   return resp
+// }
