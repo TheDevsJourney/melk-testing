@@ -13,10 +13,14 @@ exports.handler = async (event, context, callback) => {
   const requestBody = JSON.parse(event.body)
   const productId = requestBody.productId
 
-  const product = await stripe.products.update(`${productId}`, {
-    metadata: { Quantity: 0 },
-    active: "false",
-  })
+  const product = await stripe.products.update(
+    `${productId}`,
+    `${requestBody.product}`,
+    {
+      metadata: { Quantity: 0 },
+      active: "false",
+    }
+  )
 
   const response = {
     statusCode: 200,
