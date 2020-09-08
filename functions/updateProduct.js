@@ -11,21 +11,21 @@ exports.handler = async (event, context, callback) => {
   // })
 
   const requestBody = JSON.parse(event.body)
-  const productId = requestBody.productId
+  const priceID = requestBody.priceID
 
-  await stripe.products.update(`${productId}`, {
+  await stripe.prices.update(`${priceID}`, {
     metadata: { Quantity: 0 },
     active: "false",
   })
 
-  // const response = {
-  //   statusCode: 200,
-  //   headers: {
-  //     "Access-Control-Allow-Origin": "*",
-  //   },
-  //   body: JSON.stringify({
-  //     product,
-  //   }),
-  // }
-  // callback(null, response)
+  const response = {
+    statusCode: 200,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+    },
+    body: JSON.stringify({
+      product,
+    }),
+  }
+  callback(null, response)
 }
