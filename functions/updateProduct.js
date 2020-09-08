@@ -1,7 +1,7 @@
 const stripe = require("stripe")(`${process.env.STRIPE_SECRET_KEY}`)
 
 // Testing
-exports.handler = async ({ body, headers }) => {
+exports.handler = async (event, context, callback) => {
   // const sku = JSON.parse(event.body)
   // console.log(sku)
 
@@ -10,20 +10,22 @@ exports.handler = async ({ body, headers }) => {
   //   active: "false",
   // })
 
-  try {
-    // check the webhook to make sure it’s valid
-    const stripeEvent = stripe.webhooks.constructEvent(
-      body,
-      headers["stripe-signature"],
-      process.env.STRIPE_WEBHOOK_SECRET
-    )
+  const requestBody = JSON.parse(event.body)
+  const productId = requestBody.productId
 
-    // only do stuff if this is a successful Stripe Checkout purchase
-    if (stripeEvent.type === "checkout.session.completed") {
-      const eventObject = stripeEvent.data.object
-      return eventObject
-    }
-  } catch (err) {
-    console.log(`Stripe webhook failed with ${err}`)
+  const product = await stripe.products.update(productId, requestBody.product, {
+    metadata: { Quantity: 0 },
+    active: "false",
+  })
+
+  const response = {
+    statusCode: 200,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+    },
+    body: JSON.stringify({
+      product,
+    }),
   }
+  callback(null, response)
 }
