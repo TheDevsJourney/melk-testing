@@ -1,23 +1,29 @@
 const stripe = require("stripe")(`${process.env.STRIPE_SECRET_KEY}`)
 
 // Testing
-exports.handler = async (event, callback) => {
+exports.handler = async ({ body, headers }) => {
   // const sku = JSON.parse(event.body)
   // console.log(sku)
 
-  const sku = await stripe.products.update("prod_HrhMl8JQCWOdXp", {
-    metadata: { Quantity: 0 },
-    active: "false",
-  })
+  // stripe.products.update(product, {
+  //   metadata: { Quantity: 0 },
+  //   active: "false",
+  // })
 
-  const response = {
-    statusCode: 200,
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-    },
-    body: JSON.stringify(sku),
+  try {
+    // check the webhook to make sure it’s valid
+    const stripeEvent = stripe.webhooks.constructEvent(
+      body,
+      headers["stripe-signature"],
+      process.env.STRIPE_WEBHOOK_SECRET
+    )
+
+    // only do stuff if this is a successful Stripe Checkout purchase
+    if (stripeEvent.type === "checkout.session.completed") {
+      const eventObject = stripeEvent.data.object
+      return eventObject
+    }
+  } catch (err) {
+    console.log(`Stripe webhook failed with ${err}`)
   }
-  callback(null, response)
 }
-// `${sku.data.object.id}`
-// Need to find a way to run the webhook from the code, and the serverless function from the code so I can pass in the product ID
