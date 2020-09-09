@@ -8,7 +8,7 @@ const Success = () => {
     // make fetch to updateProduct here
     Object.entries(cartDetails).map(entry => {
       handleUpdate(entry[1].sku)
-      removeItem(entry[1].sku)
+      // removeItem(entry[1].sku)
     })
   }, [])
 
@@ -20,12 +20,14 @@ const Success = () => {
     await fetch(
       "https://elated-lamarr-b45c38.netlify.app/.netlify/functions/updateProduct",
       {
-        method: "POST",
+        // method: "POST",
         body: {
           priceID: price,
         },
       }
     )
+
+    removeItem(price)
   }
 
   return <div></div>
