@@ -18,14 +18,14 @@ exports.handler = async (event, context, callback) => {
     active: "false",
   })
 
-  const response = {
-    statusCode: 200,
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-    },
-    body: JSON.stringify({
-      product,
-    }),
-  }
-  callback(null, response)
+  // const response = {
+  //   statusCode: 200,
+  //   headers: {
+  //     "Access-Control-Allow-Origin": "*",
+  //   },
+  //   body: JSON.stringify({
+  //     product,
+  //   }),
+  // }
+  // callback(null, response)
 }
